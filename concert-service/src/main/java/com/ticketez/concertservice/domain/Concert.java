@@ -1,14 +1,12 @@
 package com.ticketez.concertservice.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,6 +33,9 @@ public class Concert {
     // 티켓 구매 종료일
     private LocalDateTime purchaseEndData;
 
+    @OneToMany(mappedBy = "concert", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Seat> seats = new ArrayList<>();
+
     @Builder
     public Concert(String concertName, String description, int totalSeats, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime purchaseStartData, LocalDateTime purchaseEndData) {
         this.concertName = concertName;
@@ -47,4 +48,7 @@ public class Concert {
         this.purchaseEndData = purchaseEndData;
     }
 
+    public void setSeats(List<Seat> seats){
+        this.seats = seats;
+    }
 }

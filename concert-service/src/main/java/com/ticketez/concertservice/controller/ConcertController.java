@@ -1,7 +1,7 @@
 package com.ticketez.concertservice.controller;
 
 
-import com.ticketez.concertservice.dto.ConcertDto;
+import com.ticketez.concertservice.dto.ConcertRegisterDto;
 import com.ticketez.concertservice.service.ConcertService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ public class ConcertController {
     private final ConcertService concertService;
     // 콘서트 등록
     @GetMapping("/register")
-    public ResponseEntity<?> registerConcert(@RequestBody @Valid ConcertDto concertDto){
-        return ResponseEntity.ok().body(concertService.registerConcert(concertDto));
+    public ResponseEntity<?> registerConcert(@RequestBody @Valid ConcertRegisterDto concertRegisterDto){
+        return ResponseEntity.ok().body(concertService.registerConcert(concertRegisterDto));
     }
     // 콘서트 조회
     // 전체 콘서트 조회

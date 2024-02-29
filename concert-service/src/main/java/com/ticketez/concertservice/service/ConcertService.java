@@ -1,9 +1,9 @@
 package com.ticketez.concertservice.service;
 
-import com.ticketez.concertservice.dto.ConcertDto;
+import com.ticketez.concertservice.dto.ConcertRegisterDto;
 
 public interface ConcertService {
 
-    ConcertDto registerConcert(ConcertDto concertDto);
+    ConcertRegisterDto registerConcert(ConcertRegisterDto concertRegisterDto);
 
 }

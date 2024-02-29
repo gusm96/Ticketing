@@ -1,14 +1,12 @@
 package com.ticketez.concertservice.service;
 
 
-import com.netflix.discovery.converters.Auto;
 import com.ticketez.concertservice.domain.Concert;
 import com.ticketez.concertservice.domain.Seat;
-import com.ticketez.concertservice.dto.ConcertDto;
+import com.ticketez.concertservice.dto.ConcertRegisterDto;
 import com.ticketez.concertservice.dto.SeatDto;
 import com.ticketez.concertservice.repository.ConcertRepository;
 import com.ticketez.concertservice.repository.SeatRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -44,7 +43,7 @@ public class ConcertServiceTest {
                     .build();
             seatsDto.add(seatDto);
         }
-        ConcertDto concertDto = ConcertDto.builder()
+        ConcertRegisterDto concertRegisterDto = ConcertRegisterDto.builder()
                 .concertName("콘서트")
                 .description("콘서트입니다.")
                 .totalSeats(500000) // 50만석
@@ -56,9 +55,12 @@ public class ConcertServiceTest {
                 .build();
         // when
         // 콘서트 저장
-        Concert newConcert = concertRepository.save(concertDto.toConcertEntity());
+        Concert newConcert = concertRepository.save(concertRegisterDto.toEntity());
         // 좌석정보 생성
-        List<Seat> seats = seatRepository.saveAll(concertDto.toSeatEntityList(newConcert));
+        List<SeatDto> seatDtoList = concertRegisterDto.getSeatInfo();
+        List<Seat> seats = seatRepository.saveAll(seatDtoList.stream()
+                .map(s -> s.toEntity(newConcert))
+                .collect(Collectors.toList()));
         newConcert.setSeats(seats);
         // 성공 시 콘서트 티켓 반환
 

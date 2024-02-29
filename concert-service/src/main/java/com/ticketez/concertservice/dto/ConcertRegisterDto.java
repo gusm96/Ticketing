@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class ConcertDto {
+public class ConcertRegisterDto {
     // 콘서트 이름
     @NotBlank(message = "콘서트 이름을 작성하세요.")
     private String concertName;
@@ -30,7 +30,7 @@ public class ConcertDto {
 
     // 좌석별 등급/좌석수/금액
     @NotBlank(message = "좌석 정보를 입력하세요.")
-    private List<SeatDto> seatInfo = new ArrayList<>();
+    private List<SeatDto> seatInfo;
 
     // 콘서트 시작일
     private LocalDateTime startDate;
@@ -44,7 +44,7 @@ public class ConcertDto {
     // 티켓 구매 종료일
     private LocalDateTime purchaseEndData;
 
-    public Concert toConcertEntity(){
+    public Concert toEntity(){
         return Concert.builder()
                 .concertName(this.concertName)
                 .description(this.description)
@@ -54,14 +54,5 @@ public class ConcertDto {
                 .purchaseStartData(this.purchaseStartData)
                 .purchaseEndData(this.purchaseEndData)
                 .build();
-    }
-
-    public List<Seat> toSeatEntityList(Concert concert){
-        return this.seatInfo.stream().map(s -> Seat.builder()
-                .seatRating(s.getSeatRating())
-                .count(s.getCount())
-                .price(s.getPrice())
-                .concert(concert)
-                .build()).collect(Collectors.toList());
     }
 }

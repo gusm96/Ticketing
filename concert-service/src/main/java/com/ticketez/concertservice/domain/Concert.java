@@ -29,23 +29,23 @@ public class Concert {
     // 콘서트 종료일
     private LocalDateTime endData;
     // 티켓 구매 시작일
-    private LocalDateTime purchaseStartData;
+    private LocalDateTime purchaseStartDate;
     // 티켓 구매 종료일
-    private LocalDateTime purchaseEndData;
+    private LocalDateTime purchaseEndDate;
 
     @OneToMany(mappedBy = "concert", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Seat> seats = new ArrayList<>();
 
     @Builder
-    public Concert(String concertName, String description, int totalSeats, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime purchaseStartData, LocalDateTime purchaseEndData) {
+    public Concert(String concertName, String description, int totalSeats, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime purchaseStartDate, LocalDateTime purchaseEndDate) {
         this.concertName = concertName;
         this.description = description;
         this.totalSeats = totalSeats;
         this.registrationDate = LocalDateTime.now();
         this.startDate = startDate;
         this.endData = endDate;
-        this.purchaseStartData = purchaseStartData;
-        this.purchaseEndData = purchaseEndData;
+        this.purchaseStartDate = purchaseStartDate;
+        this.purchaseEndDate = purchaseEndDate;
     }
 
     public void setSeats(List<Seat> seats){

@@ -18,5 +18,6 @@ public class Seat {
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "concert_id")
     private Concert concert;
 }

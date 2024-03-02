@@ -1,0 +1,28 @@
+server:
+  port: 0
+
+spring:
+  config:
+    activate:
+      on-profile: default
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3066/ticketing
+    username: moya
+    password: moya134353@@
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: 0
+      timeout: 6000
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+

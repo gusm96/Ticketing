@@ -39,10 +39,10 @@ public class ConcertRegisterDto {
     private LocalDateTime endData;
 
     // 티켓 구매 시작일
-    private LocalDateTime purchaseStartData;
+    private LocalDateTime purchaseStartDate;
 
     // 티켓 구매 종료일
-    private LocalDateTime purchaseEndData;
+    private LocalDateTime purchaseEndDate;
 
     public Concert toEntity(){
         return Concert.builder()
@@ -51,8 +51,8 @@ public class ConcertRegisterDto {
                 .totalSeats(this.totalSeats)
                 .startDate(this.startDate)
                 .endDate(this.endData)
-                .purchaseStartData(this.purchaseStartData)
-                .purchaseEndData(this.purchaseEndData)
+                .purchaseStartDate(this.purchaseStartDate)
+                .purchaseEndDate(this.purchaseEndDate)
                 .build();
     }
 }
